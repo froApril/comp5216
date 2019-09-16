@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1019121381343",
+    "firebase_url": "https://imenu-21613.firebaseio.com",
+    "project_id": "imenu-21613",
+    "storage_bucket": "imenu-21613.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019121381343:android:c8a502800c8dc4aef0de6a",
+        "android_client_info": {
+          "package_name": "mobileproject.au.edu.sydney.comp5216.mobileproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019121381343-nj1icrthi1sq6qnhkj5e3oo48c0t9emh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6Ds7ygc4A7n81BeYMpZQUkG70B7EY9-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019121381343-nj1icrthi1sq6qnhkj5e3oo48c0t9emh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
