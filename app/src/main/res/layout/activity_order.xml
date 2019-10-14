@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0">
+    android:background="#E0E0E0"
+    tools:context=".OrderActivity">
 
     <RelativeLayout
         android:id="@+id/restaurant_top_card"
@@ -20,10 +20,12 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:alpha="1.0"
-            android:contentDescription="IMAGE"
             android:scaleType="centerCrop"
-            android:visibility="visible"
-            tools:src="@drawable/food_1" />
+            android:src="@drawable/food_1" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/gradient_up" />
 
         <TextView
             android:id="@+id/restaurant_name"
@@ -33,7 +35,8 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:textStyle="bold"
-            tools:text="Some Restaurant" />
+            android:text="Some Restaurant" />
+
 
         <TextView
             android:id="@+id/restaurant_ratings"
@@ -44,7 +47,7 @@
             android:layout_marginTop="8dp"
             android:layout_below="@+id/restaurant_name"
             android:gravity="center"
-            tools:text="(10)" />
+            android:text="(10)" />
     </RelativeLayout>
 
     <ListView
@@ -60,5 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="1dp"
+        android:onClick="MakeOrder"
         android:text="@string/confirm" />
 </RelativeLayout>
