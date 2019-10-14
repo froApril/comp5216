@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please give us your feedback"
+        android:gravity="center"
+        android:textColor="#ffcc33"
+        android:textSize="28dp"
+        android:paddingTop="60dp"
+        android:paddingBottom="30dp"
+        ></TextView>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray"  />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Your rates: "
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            >
+        </TextView>
+        <com.iarcuschin.simpleratingbar.SimpleRatingBar
+            android:id="@+id/ratingbar_addcomment"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            app:srb_starSize="30dp"
+            app:srb_numberOfStars="5"
+            app:srb_rating="5"
+            app:srb_stepSize="1"
+            app:srb_isIndicator="false"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Your comments:"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/comment_textarea"
+        android:background="@drawable/general_bord"
+        >
+
+    </EditText>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:text="Add Comment"
+        android:background="@drawable/shape_button"
+        android:id="@+id/add_comment_detail_btn"
+        >
+
+    </Button>
+
+</LinearLayout>
