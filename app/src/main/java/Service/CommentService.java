@@ -17,7 +17,7 @@ import DAO.CommentsDAO;
 import androidx.annotation.NonNull;
 
 
-public class CommantService implements CommentsDAO {
+public class CommentService implements CommentsDAO {
 
     DocumentReference mDoc  = FirebaseFirestore.getInstance().document("comments/commentJson");
 
