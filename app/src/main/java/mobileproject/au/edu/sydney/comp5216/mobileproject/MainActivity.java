@@ -13,10 +13,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CommentsDAO commentsDAO = new CommentService();
-        Comments test = new Comments(1,"qwasa","1sasc",11,"@1321");
-        commentsDAO.addComment(test);
-
 
     }
 }
