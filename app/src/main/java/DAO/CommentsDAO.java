@@ -8,7 +8,7 @@ import Beans.Comments;
 
 public interface CommentsDAO {
 
-    void addComment(Comments comments);
+    boolean addComment(Comments comments);
 
     void updateComment(Comments newComment);
 

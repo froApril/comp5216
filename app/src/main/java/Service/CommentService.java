@@ -1,6 +1,7 @@
 package Service;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,7 +31,7 @@ public class CommentService implements CommentsDAO {
     DatabaseReference mDatabase;
 
     @Override
-    public void addComment(Comments comments) {
+    public boolean addComment(Comments comments) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("restaurants").child(comments.getStorename())
                 .child("comments").child(comments.getUsername())
@@ -38,7 +39,7 @@ public class CommentService implements CommentsDAO {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.e("ok", "insert");
+                        Log.e("ok!!","insert");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -47,7 +48,7 @@ public class CommentService implements CommentsDAO {
                         Log.e("problem", e + "");
                     }
                 });
-
+        return true;
     }
 
     @Override

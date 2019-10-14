@@ -27,9 +27,10 @@ public class CommentDetail {
     public CommentDetail(){
 
     }
-    public CommentDetail(String detail, Integer score){
+    public CommentDetail(String detail, Integer score, String username){
         this.detail =detail;
         this.socre = score;
+        this.username = username;
     }
 
     public String getUsername() {
