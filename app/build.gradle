@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    buildToolsVersion '28.0.3'
     compileSdkVersion 28
     defaultConfig {
         applicationId "mobileproject.au.edu.sydney.comp5216.mobileproject"
@@ -35,7 +36,12 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.facebook.android:facebook-login:[5,6)'
+    implementation 'com.facebook.android:facebook-android-sdk:5.0.0'
     implementation 'com.google.android.material:material:1.0.0'
+
+    implementation 'com.journeyapps:zxing-android-embedded:4.0.0'
+    implementation 'com.google.zxing:core:3.4.0'
+    implementation 'com.yanzhenjie:permission:2.0.3'
 
 }
 apply plugin: 'com.google.gms.google-services'
