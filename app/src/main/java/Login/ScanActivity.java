@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import mobileproject.au.edu.sydney.comp5216.mobileproject.MainActivity;
 import mobileproject.au.edu.sydney.comp5216.mobileproject.R;
 
 public class ScanActivity extends AppCompatActivity {
@@ -42,6 +43,33 @@ public class ScanActivity extends AppCompatActivity {
 
         //Button
         scanBtn=findViewById(R.id.scanBtn);
+        scanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                IntentIntegrator intentIntegrator = new IntentIntegrator(ScanActivity.this);
+                // START SCAN
+                intentIntegrator.initiateScan();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Scanned: "  , Toast.LENGTH_LONG).show();
+                String content = result.getContents();
+                Intent intent = new Intent(ScanActivity.this, OrderActivity.class);
+                intent.putExtra("uid" ,content);
+                startActivity(intent);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
     @Override
     public void onStart() {
@@ -57,29 +85,7 @@ public class ScanActivity extends AppCompatActivity {
         mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
     }
 
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.scanBtn) {
-            new IntentIntegrator(this).initiateScan();
 
-        }
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, "Scanned: "  , Toast.LENGTH_LONG).show();
-                String content = result.getContents();
-                Intent intent = new Intent(ScanActivity.this,OrderActivity.class);
-                intent.putExtra("uid" ,content);
-                startActivity(Intent);
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
+
 
 }

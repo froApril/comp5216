@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import mobileproject.au.edu.sydney.comp5216.mobileproject.MainActivity;
 import mobileproject.au.edu.sydney.comp5216.mobileproject.R;
 
 public class EmailPasswordActivity extends BaseActivity implements View.OnClickListener {
@@ -161,15 +162,15 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     private void onAuthSuccess(FirebaseUser user) {
 
         RadioButton restaurantBtn = (RadioButton) findViewById(R.id.restaurant);
-        Boolean isrestuant;
+        Boolean isrestaurant;
 
         if( restaurantBtn.isChecked()) {
-            isrestuant = true;
-        }else{isrestuant = false;
+            isrestaurant = true;
+        }else{isrestaurant = false;
         }
             String username = usernameFromEmail(user.getEmail());
             // Write new user
-            writeNewUser(user.getUid(), username, user.getEmail(), isrestuant);
+            writeNewUser(user.getUid(), username, user.getEmail(), isrestaurant);
 
             finish();
 
@@ -287,13 +288,14 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                         // Get user information
 
                         User user = dataSnapshot.getValue(User.class);
-                        boolean isrestaurant = user.getIsRestrant();
+                        boolean isrestaurant = user.getIsRestaurant();
                         if(isrestaurant){
-                            Intent intent = new Intent(EmailPasswordActivity.this,Store.class);
+                            Intent intent = new Intent(EmailPasswordActivity.this, Store.class);
                             intent.putExtra("uid",uid);
                             startActivity(intent);
                         }else{
-                            startActivity(new Intent(EmailPasswordActivity.this,ScanActivity.class));
+                            Intent intent = new Intent(EmailPasswordActivity.this, ScanActivity.class);
+                            startActivity(intent);
                         }
                     }
                     @Override

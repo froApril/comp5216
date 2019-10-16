@@ -35,7 +35,7 @@ public class User {
 
     }
 
-    public boolean getIsRestrant(){
+    public boolean getIsRestaurant(){
         return isrestaurant;
     }
 
