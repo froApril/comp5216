@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    buildToolsVersion '28.0.3'
     compileSdkVersion 28
     defaultConfig {
         applicationId "mobileproject.au.edu.sydney.comp5216.mobileproject"
@@ -42,6 +43,8 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 
+    implementation 'com.journeyapps:zxing-android-embedded:4.0.0'
 
+    implementation 'com.yanzhenjie:permission:2.0.3'
 }
 apply plugin: 'com.google.gms.google-services'

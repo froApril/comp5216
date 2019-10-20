@@ -1,35 +1,52 @@
 package Login;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+
+import mobileproject.au.edu.sydney.comp5216.mobileproject.MainActivity;
 import mobileproject.au.edu.sydney.comp5216.mobileproject.R;
 
 public class EmailPasswordActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "EmailPassword";
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 1008;
+    private static final int WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE=1009;
 
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     private EditText mEmailField;
     private EditText mPasswordField;
 
+    private DatabaseReference mDatabase;
     // START declare_auth
     private FirebaseAuth mAuth;
     // END declare_auth
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,11 +64,15 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
         findViewById(R.id.emailCreateAccountButton).setOnClickListener(this);
         findViewById(R.id.signOutButton).setOnClickListener(this);
         findViewById(R.id.verifyEmailButton).setOnClickListener(this);
+        findViewById(R.id.goToScanButton).setOnClickListener(this);
 
-        // [START initialize_auth]
+        // [START initialize_database_ref]
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        // [END initialize_database_ref]
+        // START initialize_auth
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
+        // END initialize_auth
     }
 
     // [START on_start_check_user]
@@ -62,9 +83,13 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
-    // [END on_start_check_user]
+
+
 
     private void createAccount(String email, String password) {
+
+
+
         Log.d(TAG, "createAccount:" + email);
         if (!validateForm()) {
             return;
@@ -72,7 +97,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
 
         showProgressDialog();
 
-        // [START create_user_with_email]
+        // START create_user_with_email
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -82,6 +107,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            onAuthSuccess(task.getResult().getUser());
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -90,15 +116,17 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                             updateUI(null);
                         }
 
-                        // [START_EXCLUDE]
+                        // START_EXCLUDE
                         hideProgressDialog();
-                        // [END_EXCLUDE]
+                        // END_EXCLUDE
                     }
                 });
-        // [END create_user_with_email]
     }
 
     private void signIn(String email, String password) {
+
+
+
         Log.d(TAG, "signIn:" + email);
         if (!validateForm()) {
             return;
@@ -133,6 +161,42 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                     }
                 });
         // [END sign_in_with_email]
+    }
+
+
+    private void onAuthSuccess(FirebaseUser user) {
+
+        RadioButton restaurantBtn = (RadioButton) findViewById(R.id.restaurant);
+        Boolean isrestaurant;
+
+        if( restaurantBtn.isChecked()) {
+            isrestaurant = true;
+        }else{isrestaurant = false;
+        }
+            String username = usernameFromEmail(user.getEmail());
+            // Write new user
+            writeNewUser(user.getUid(), username, user.getEmail(), isrestaurant);
+
+            finish();
+
+    }
+
+
+
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
+
+    }
+    private void writeNewUser(String userId, String name, String email,boolean isrestaurant) {
+
+        User user = new User(name, email,isrestaurant);
+
+        mDatabase.child("users").child(userId).setValue(user);
+
     }
 
     private void signOut() {
@@ -215,6 +279,50 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    public void goToScan(){
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]
+                    {Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+            return;
+        }
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]
+                    {Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
+            return;
+        } else{
+        final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        mDatabase.child("users").child(uid)
+
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        // Get user information
+
+                        User user = dataSnapshot.getValue(User.class);
+                        boolean isrestaurant = user.getIsRestaurant();
+                        if(isrestaurant){
+                            Intent intent = new Intent(EmailPasswordActivity.this, ScanActivity.class);
+                            //intent.putExtra("uid",uid);
+                            startActivity(intent);
+                        }else{
+                            Intent intent = new Intent(EmailPasswordActivity.this, ScanActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // ...
+                    }
+                });}
+    }
+
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -226,6 +334,8 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
             signOut();
         } else if (i == R.id.verifyEmailButton) {
             sendEmailVerification();
+        }else if(i == R.id.goToScanButton){
+            goToScan();
         }
     }
 }
