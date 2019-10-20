@@ -33,7 +33,6 @@
         </activity>
 
         <activity android:name=".OrderActivity"/>
-        <activity android:name=".EditMenuActivity"/>
         <activity android:name=".CommentActivity"/>
         <activity android:name=".addCommentActivity"/>
 
@@ -68,7 +67,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
 
     </application>
 
