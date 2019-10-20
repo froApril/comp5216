@@ -12,9 +12,9 @@ public class User {
 
 
 
-    public String username;
-    public String email;
-    public boolean isrestaurant;
+    private String username;
+    private String email;
+    private boolean isrestaurant;
 
 
 
@@ -33,6 +33,26 @@ public class User {
 
         this.isrestaurant= isrestaurant;
 
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setIsRestaurant(boolean isrestaurant) {
+        this.isrestaurant = isrestaurant;
     }
 
     public boolean getIsRestaurant(){
