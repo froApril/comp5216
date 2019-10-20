@@ -23,11 +23,13 @@ public class addCommentActivity extends Activity {
     Button addCommentbtn;
     SimpleRatingBar ratingBar;
     EditText message;
+    String storename;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_comment);
+        storename = getIntent().getExtras().getString("storename");
         commentsDAO = new CommentService();
         ratingBar = findViewById(R.id.ratingbar_addcomment);
         message = findViewById(R.id.comment_textarea);
@@ -49,7 +51,7 @@ public class addCommentActivity extends Activity {
                 }
                 else{
                     Comments comments = new Comments("test user"
-                            ,"KFC",new CommentDetail(s,start,"test user"));
+                            ,storename,new CommentDetail(s,start,"test user"));
                     if(commentsDAO.addComment(comments)){
                         Toast.makeText(getApplicationContext()
                                 ,"Your comment will be published"
@@ -58,6 +60,7 @@ public class addCommentActivity extends Activity {
                     // pass restaurant and current user back
                     Intent intent = new Intent(addCommentActivity.this
                             ,CommentActivity.class);
+                    intent.putExtra("storename",storename);
                     startActivity(intent);
                     finish();
 

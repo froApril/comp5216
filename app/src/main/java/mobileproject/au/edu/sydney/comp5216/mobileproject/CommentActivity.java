@@ -34,7 +34,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CommentActivity extends AppCompatActivity {
 
-    private String storename = "KFC";
+    private String storename;
     private int state= 0;
     private ListView commentlist;
     private Map<String, CommentDetail>comments;
@@ -45,6 +45,7 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+        storename = getIntent().getExtras().getString("storename");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         setAllCommentsList(storename);
         setAddButtonListener();
@@ -89,6 +90,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CommentActivity.this,addCommentActivity.class);
+                intent.putExtra("storename",storename);
                 startActivity(intent);
                 finish();
             }

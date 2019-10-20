@@ -46,6 +46,8 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     private FirebaseAuth mAuth;
     // END declare_auth
 
+    private FirebaseUser cur_user;
+
 
 
     @Override
@@ -142,8 +144,8 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            cur_user = mAuth.getCurrentUser();
+                            updateUI(cur_user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -167,17 +169,10 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     private void onAuthSuccess(FirebaseUser user) {
 
         RadioButton restaurantBtn = (RadioButton) findViewById(R.id.restaurant);
-        Boolean isrestaurant;
-
-        if( restaurantBtn.isChecked()) {
-            isrestaurant = true;
-        }else{isrestaurant = false;
-        }
-            String username = usernameFromEmail(user.getEmail());
-            // Write new user
-            writeNewUser(user.getUid(), username, user.getEmail(), isrestaurant);
-
-            finish();
+        String username = usernameFromEmail(user.getEmail());
+        // Write new user
+        writeNewUser(user.getUid(), username, user.getEmail(), restaurantBtn.isChecked());
+//        finish();
 
     }
 
@@ -195,7 +190,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
 
         User user = new User(name, email,isrestaurant);
 
-        mDatabase.child("users").child(userId).setValue(user);
+        mDatabase.child("users").child("user-info").child(user.getUsername()).setValue(user);
 
     }
 
@@ -294,7 +289,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
         } else{
         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        mDatabase.child("users").child(uid)
+        mDatabase.child("users").child("user-info").child(usernameFromEmail(cur_user.getEmail()))
 
                 .addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -307,11 +302,13 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                         User user = dataSnapshot.getValue(User.class);
                         boolean isrestaurant = user.getIsRestaurant();
                         if(isrestaurant){
+                            //******
                             Intent intent = new Intent(EmailPasswordActivity.this, ScanActivity.class);
-                            //intent.putExtra("uid",uid);
+                            intent.putExtra("username",usernameFromEmail(cur_user.getEmail()));
                             startActivity(intent);
                         }else{
                             Intent intent = new Intent(EmailPasswordActivity.this, ScanActivity.class);
+                            intent.putExtra("username",usernameFromEmail(cur_user.getEmail()));
                             startActivity(intent);
                         }
                     }

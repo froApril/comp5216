@@ -26,10 +26,8 @@ public class ScanActivity extends AppCompatActivity {
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     private Button scanBtn;
-
+    private String username;
     private static final int REQUEST_CODE_SCAN = 1007;
-
-
 
 
     private DatabaseReference mDatabase;
@@ -40,8 +38,9 @@ public class ScanActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_emailpassword);
+        setContentView(R.layout.activity_scan);
 
+        username = getIntent().getStringExtra("username");
 
         // Views
         mStatusTextView = findViewById(R.id.status);

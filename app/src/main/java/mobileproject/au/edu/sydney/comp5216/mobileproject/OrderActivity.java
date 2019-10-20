@@ -90,8 +90,9 @@ public class OrderActivity extends AppCompatActivity {
 
     public void MakeOrder(View view){
         makeOrder(menuList,storeName);
-//        Intent intent = new Intent();
-//        startActivity(intent);
+        Intent intent = new Intent(OrderActivity.this,CommentActivity.class);
+        intent.putExtra("storename",storeName);
+        startActivity(intent);
     }
 
     private void makeOrder(ArrayList<Items> order,String storeName){
