@@ -1,7 +1,9 @@
 package Login;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +31,7 @@ public class ScanActivity extends AppCompatActivity {
 
 
 
+
     private DatabaseReference mDatabase;
     // START declare_auth
     private FirebaseAuth mAuth;
@@ -35,11 +39,14 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_emailpassword);
+
 
         // Views
         mStatusTextView = findViewById(R.id.status);
         mDetailTextView = findViewById(R.id.detail);
+
 
         //Button
         scanBtn=findViewById(R.id.scanBtn);
@@ -52,26 +59,11 @@ public class ScanActivity extends AppCompatActivity {
                 intentIntegrator.initiateScan();
             }
         });
+
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, "Scanned: "  , Toast.LENGTH_LONG).show();
-                String content = result.getContents();
-                Intent intent = new Intent(ScanActivity.this, OrderActivity.class);
-                intent.putExtra("uid" ,content);
-                startActivity(intent);
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-    @Override
+
+  /*  @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -83,9 +75,25 @@ public class ScanActivity extends AppCompatActivity {
         mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
                         user.getEmail(), user.isEmailVerified()));
         mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+    }*/
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Scanned: "  , Toast.LENGTH_LONG).show();
+                String content = result.getContents();
+                Intent intent = new Intent(ScanActivity.this, ScanActivity.class);
+                intent.putExtra("uid" ,content);
+                startActivity(intent);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
-
-
-
 
 }

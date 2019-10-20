@@ -1,6 +1,8 @@
 package Login;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,6 +33,8 @@ import mobileproject.au.edu.sydney.comp5216.mobileproject.R;
 public class EmailPasswordActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "EmailPassword";
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 1008;
+    private static final int WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE=1009;
 
     private TextView mStatusTextView;
     private TextView mDetailTextView;
@@ -275,6 +280,18 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     }
 
     public void goToScan(){
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]
+                    {Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+            return;
+        }
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]
+                    {Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
+            return;
+        } else{
         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         mDatabase.child("users").child(uid)
@@ -290,8 +307,8 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                         User user = dataSnapshot.getValue(User.class);
                         boolean isrestaurant = user.getIsRestaurant();
                         if(isrestaurant){
-                            Intent intent = new Intent(EmailPasswordActivity.this, Store.class);
-                            intent.putExtra("uid",uid);
+                            Intent intent = new Intent(EmailPasswordActivity.this, ScanActivity.class);
+                            //intent.putExtra("uid",uid);
                             startActivity(intent);
                         }else{
                             Intent intent = new Intent(EmailPasswordActivity.this, ScanActivity.class);
@@ -302,7 +319,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                     public void onCancelled(DatabaseError databaseError) {
                         // ...
                     }
-                });
+                });}
     }
 
 

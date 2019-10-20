@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -44,6 +43,14 @@
             android:label="@string/label_emailpassword"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
+        android:name="Login.ScanActivity"
+        android:label="@string/label_scan_activity" />
+
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
+        <activity
             android:name="Login.PasswordlessActivity"
             android:label="@string/label_passwordless"
             android:launchMode="singleTop">
@@ -57,14 +64,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="Login.ScanActivity"
-            android:label="@string/label_scan_activity" />
 
-        <activity
-            android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation" />
     </application>
 
 </manifest>
