@@ -288,8 +288,8 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                     {Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
             return;
         } else{
-        final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+        //final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            cur_user = mAuth.getCurrentUser();
         mDatabase.child("users").child("user-info").child(usernameFromEmail(cur_user.getEmail()))
 
                 .addListenerForSingleValueEvent(new ValueEventListener() {
