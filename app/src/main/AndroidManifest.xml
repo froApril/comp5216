@@ -53,6 +53,10 @@
         android:label="@string/label_scan_activity" />
 
         <activity
+                android:name="Login.GenerateQR"
+                android:label="Generate QR Activity" />
+
+        <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
