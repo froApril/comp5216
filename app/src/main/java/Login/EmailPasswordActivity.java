@@ -82,8 +82,8 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        cur_user = mAuth.getCurrentUser();
+        updateUI(cur_user);
     }
 
 
@@ -108,8 +108,9 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
                             onAuthSuccess(task.getResult().getUser());
+                            updateUI(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

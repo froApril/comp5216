@@ -43,8 +43,9 @@ public class ScanActivity extends AppCompatActivity {
         username = getIntent().getStringExtra("username");
 
         // Views
-        mStatusTextView = findViewById(R.id.status);
+        //mStatusTextView = findViewById(R.id.status);
         mDetailTextView = findViewById(R.id.detail);
+        mDetailTextView.setText("user: "+username);
 
 
         //Button
@@ -62,7 +63,7 @@ public class ScanActivity extends AppCompatActivity {
     }
 
 
-  /*  @Override
+   /*@Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
