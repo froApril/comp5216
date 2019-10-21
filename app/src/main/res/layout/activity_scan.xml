@@ -31,10 +31,7 @@
             android:text="@string/emailpassword_title_text"
             android:theme="@style/ThemeOverlay.MyTitleText" />
 
-        <TextView
-            android:id="@+id/status"
-            style="@style/ThemeOverlay.MyTextDetail"
-            android:text="@string/signed_out" />
+
 
         <TextView
             android:id="@+id/detail"
