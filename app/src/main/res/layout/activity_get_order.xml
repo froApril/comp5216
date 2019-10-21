@@ -11,14 +11,8 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/menu_item_list"
-        android:layout_alignParentTop="true"
-        android:layout_above="@id/add_item_btn" />
+        android:id="@+id/order_list"
+        android:layout_alignParentTop="true">
+    </ListView>
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_item_btn"
-        android:text="Add new item"
-        android:layout_alignParentBottom="true" />
 </RelativeLayout>

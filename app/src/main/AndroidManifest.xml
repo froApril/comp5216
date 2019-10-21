@@ -32,10 +32,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".OrderActivity"/>
-        <activity android:name=".EditMenuActivity"/>
+        <activity android:name=".OrderActivity" android:exported="true"/>
         <activity android:name=".CommentActivity"/>
         <activity android:name=".addCommentActivity"/>
+        <activity android:name=".GetOrderActivity" android:exported="true" />
+        <activity android:name=".OrderDetailActivity"/>
 
         <activity
             android:name="Login.GoogleSignInActivity"
@@ -68,7 +69,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
 
     </application>
 

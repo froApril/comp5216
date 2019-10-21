@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/tableID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TABLE ID"/>
+
+    <TextView
+        android:id="@+id/orderTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ORDER TIME: PLACEHOLDER"
+        android:layout_below="@+id/tableID"/>
+
+    <TextView
+        android:id="@+id/orderItems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chicken_wings: 2; chips: 3"
+        android:layout_below="@+id/orderTime"/>
+
+    <TextView
+        android:id="@+id/totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TOTAL PRICE: 19"
+        android:layout_below="@+id/orderItems"/>
+
+</RelativeLayout>

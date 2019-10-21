@@ -13,8 +13,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="#757575"
-        android:scaleType="centerCrop"
-        android:src="@drawable/food_1" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/restaurant_item_name"
