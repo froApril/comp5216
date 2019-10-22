@@ -80,4 +80,5 @@
     <string name="dialog_complete_msg">Is this order completed?</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="label_forgot_activity">Forgot password</string>
 </resources>
