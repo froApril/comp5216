@@ -88,7 +88,7 @@ public class ScanActivity extends AppCompatActivity {
                 Toast.makeText(this, "Scanned: "  , Toast.LENGTH_LONG).show();
                 String content = result.getContents();
                 Intent intent = new Intent(ScanActivity.this, ScanActivity.class);
-                intent.putExtra("uid" ,content);
+                intent.putExtra("storename" ,content);
                 startActivity(intent);
             }
         } else {
