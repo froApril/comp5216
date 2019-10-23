@@ -188,6 +188,7 @@ public class PasswordlessActivity extends BaseActivity implements View.OnClickLi
 
                             mEmailField.setText(null);
                             updateUI(task.getResult().getUser());
+
                         } else {
                             Log.w(TAG, "signInWithEmailLink:failure", task.getException());
                             updateUI(null);

@@ -51,6 +51,9 @@
         <activity
         android:name="Login.ScanActivity"
         android:label="@string/label_scan_activity" />
+        <activity
+                android:name="Login.ForgotPassword"
+                android:label="@string/label_forgot_activity" />
 
         <activity
                 android:name="Login.GenerateQR"

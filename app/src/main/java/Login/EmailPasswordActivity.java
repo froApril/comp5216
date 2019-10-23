@@ -276,21 +276,10 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     }
 
     public void goToScan(){
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]
-                    {Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
-            return;
-        }
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]
-                    {Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
-            return;
-        } else{
+
         //final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             cur_user = mAuth.getCurrentUser();
-        mDatabase.child("users").child("user-info").child(usernameFromEmail(cur_user.getEmail()))
+            mDatabase.child("users").child("user-info").child(usernameFromEmail(cur_user.getEmail()))
 
                 .addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -317,8 +306,22 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                     public void onCancelled(DatabaseError databaseError) {
                         // ...
                     }
-                });}
+                });
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case CAMERA_PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    goToScan();
+                } else {
+                    Toast.makeText(EmailPasswordActivity.this, "Do not have Camera permission", Toast.LENGTH_LONG).show();
+                }
+        }
+    }
+
 
 
     @Override
@@ -333,7 +336,13 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
         } else if (i == R.id.verifyEmailButton) {
             sendEmailVerification();
         }else if(i == R.id.goToScanButton){
-            goToScan();
+            if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]
+                        {Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+            }else{
+                goToScan();
+            }
         }
     }
 }
