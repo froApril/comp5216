@@ -53,7 +53,7 @@ public class ItemsAdapter extends BaseAdapter {
 
         viewHolder.titleView.setText(""+list.get(i).getTitle());
         viewHolder.descriptionView.setText(""+list.get(i).getDescription());
-        viewHolder.priceView.setText(""+list.get(i).getPrice());
+        viewHolder.priceView.setText("$"+list.get(i).getPrice());
 
         Glide.with(viewHolder.image.getContext())
                 .load(list.get(i).getImage())
