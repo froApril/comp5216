@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 
 
 import Beans.OrderItem;
+import Login.GenerateQR;
 import adapter.OrderItemAdapter;
 
 public class GetOrderActivity extends AppCompatActivity{
@@ -35,7 +37,7 @@ public class GetOrderActivity extends AppCompatActivity{
     private DatabaseReference mDatabase =  FirebaseDatabase.getInstance().getReference();
 
     public final int VIEW_ORDER_REQUEST_CODE = 555;
-    public final int ADD_ITEM_REQUEST_CODE = 666;
+    Button generateBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,10 @@ public class GetOrderActivity extends AppCompatActivity{
         // Get the view from new_activity.xml
         setContentView(R.layout.activity_get_order);
         orderItemListView = findViewById(R.id.order_list);
+        generateBtn = findViewById(R.id.generateBtn);
         loadMenu(storeName);
         setupListViewListener();
+        setBtnListener();
     }
 
     public void loadMenu(String storename){
@@ -133,6 +137,16 @@ public class GetOrderActivity extends AppCompatActivity{
             }
         });
 
+    }
+
+    public void setBtnListener() {
+        generateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GetOrderActivity.this, GenerateQR.class);
+                startActivity(intent);
+            }
+        });
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
