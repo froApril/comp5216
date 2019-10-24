@@ -115,8 +115,6 @@ public class GetOrderActivity extends AppCompatActivity{
                 String tableID = clickedItem.getTableID();
                 String orderTime = clickedItem.getOrderTime();
                 String orderItem = clickedItem.getOrderItem();
-                System.out.println(orderItem);
-                String itemNumber = clickedItem.getItemNumber();
                 double totalPrice = clickedItem.getTotalPrice();
                 Log.i("MainActivity", "Clicked item " + position + ": " + clickedItem);
                 Intent intent = new Intent(GetOrderActivity.this, OrderDetailActivity.class);
@@ -125,7 +123,6 @@ public class GetOrderActivity extends AppCompatActivity{
                     intent.putExtra("tableID", tableID);
                     intent.putExtra("orderTime", orderTime);
                     intent.putExtra("orderItem", orderItem);
-                    intent.putExtra("itemNumber", itemNumber);
                     intent.putExtra("totalPrice", totalPrice);
                     intent.putExtra("position", position);
                     // brings up the second activity

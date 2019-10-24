@@ -20,7 +20,6 @@ public class OrderDetailActivity extends Activity
         String tableID = getIntent().getStringExtra("tableID");
         String orderTime = getIntent().getStringExtra("orderTime");
         String orderItem = getIntent().getStringExtra("orderItem");
-        String itemNumber = getIntent().getStringExtra("itemNumber");
         double totalPrice = getIntent().getDoubleExtra("totalPrice", 0);
         position = getIntent().getIntExtra("position",-1);
 
@@ -30,13 +29,7 @@ public class OrderDetailActivity extends Activity
         orderTimeView = findViewById(R.id.orderTime);
         orderTimeView.setText(orderTime);
         orderItemView = findViewById(R.id.orderItems);
-        String[] items = orderItem.split(",");
-        String[] quantities = itemNumber.split(",");
-        String itemWithNumber = "Item:";
-        for(int i=0; i<items.length; i++){
-            itemWithNumber += " " + items[i] + "*" + quantities[i] + ";";
-        }
-        orderItemView.setText(itemWithNumber);
+        orderItemView.setText(orderItem);
         totalPriceView = findViewById(R.id.totalPrice);
         totalPriceView.setText("Total Price: $" + totalPrice );
     }

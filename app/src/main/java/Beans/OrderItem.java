@@ -3,7 +3,6 @@ package Beans;
 public class OrderItem {
     private String tableID;
     private String orderItem;
-    private String itemNumber;
     private String orderTime;
     private double totalPrice;
 
@@ -15,20 +14,12 @@ public class OrderItem {
         return orderItem;
     }
 
-    public String getItemNumber() {
-        return itemNumber;
-    }
-
     public String getOrderTime() {
         return orderTime;
     }
 
     public double getTotalPrice() {
         return totalPrice;
-    }
-
-    public void setItemNumber(String itemNumber) {
-        this.itemNumber = itemNumber;
     }
 
     public void setOrderItem(String orderItem) {
