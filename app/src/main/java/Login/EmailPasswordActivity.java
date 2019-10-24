@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import mobileproject.au.edu.sydney.comp5216.mobileproject.GetOrderActivity;
 import mobileproject.au.edu.sydney.comp5216.mobileproject.MainActivity;
 import mobileproject.au.edu.sydney.comp5216.mobileproject.R;
 
@@ -293,8 +294,8 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                         boolean isrestaurant = user.getIsRestaurant();
                         if(isrestaurant){
                             //******
-                            Intent intent = new Intent(EmailPasswordActivity.this, ScanActivity.class);
-                            intent.putExtra("username",usernameFromEmail(cur_user.getEmail()));
+                            Intent intent = new Intent(EmailPasswordActivity.this, GetOrderActivity.class);
+                            intent.putExtra("storename","KFC");
                             startActivity(intent);
                         }else{
                             Intent intent = new Intent(EmailPasswordActivity.this, ScanActivity.class);

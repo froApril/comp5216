@@ -20,6 +20,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import mobileproject.au.edu.sydney.comp5216.mobileproject.MainActivity;
+import mobileproject.au.edu.sydney.comp5216.mobileproject.OrderActivity;
 import mobileproject.au.edu.sydney.comp5216.mobileproject.R;
 
 public class ScanActivity extends AppCompatActivity {
@@ -87,8 +88,12 @@ public class ScanActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Scanned: "  , Toast.LENGTH_LONG).show();
                 String content = result.getContents();
-                Intent intent = new Intent(ScanActivity.this, ScanActivity.class);
-                intent.putExtra("storename" ,content);
+                String[] con_spl=content.split(" ");
+
+                Intent intent = new Intent(ScanActivity.this, OrderActivity.class);
+                intent.putExtra("storename" ,con_spl[0]);
+                intent.putExtra("tableid" ,con_spl[1]);
+                intent.putExtra("username" ,username);
                 startActivity(intent);
             }
         } else {
