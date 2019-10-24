@@ -39,12 +39,6 @@
         <activity android:name=".OrderDetailActivity"/>
 
         <activity
-            android:name="Login.GoogleSignInActivity"
-            android:label="@string/label_google_sign_in" />
-        <activity
-            android:name="Login.FacebookLoginActivity"
-            android:label="@string/label_facebook_login" />
-        <activity
             android:name="Login.EmailPasswordActivity"
             android:label="@string/label_emailpassword"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -63,19 +57,6 @@
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
-        <activity
-            android:name="Login.PasswordlessActivity"
-            android:label="@string/label_passwordless"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <data
-                    android:host="your-project-id.firebaseapp.com"
-                    android:scheme="https" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
     </application>
 
