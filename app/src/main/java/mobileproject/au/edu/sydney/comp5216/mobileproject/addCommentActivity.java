@@ -24,12 +24,14 @@ public class addCommentActivity extends Activity {
     SimpleRatingBar ratingBar;
     EditText message;
     String storename;
+    String username;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_comment);
         storename = getIntent().getExtras().getString("storename");
+        username = getIntent().getExtras().getString("username");
         commentsDAO = new CommentService();
         ratingBar = findViewById(R.id.ratingbar_addcomment);
         message = findViewById(R.id.comment_textarea);
@@ -50,8 +52,8 @@ public class addCommentActivity extends Activity {
                             ,Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Comments comments = new Comments("test user"
-                            ,storename,new CommentDetail(s,start,"test user"));
+                    Comments comments = new Comments(username
+                            ,storename,new CommentDetail(s,start,username));
                     if(commentsDAO.addComment(comments)){
                         Toast.makeText(getApplicationContext()
                                 ,"Your comment will be published"
@@ -61,6 +63,7 @@ public class addCommentActivity extends Activity {
                     Intent intent = new Intent(addCommentActivity.this
                             ,CommentActivity.class);
                     intent.putExtra("storename",storename);
+                    intent.putExtra("username",username);
                     startActivity(intent);
                     finish();
 

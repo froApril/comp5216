@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,14 +23,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import Beans.Items;
 import adapter.ItemsAdapter;
 
 public class OrderActivity extends AppCompatActivity {
-    private String storeName = "KFC";
+    private String storeName ;
+    private String userName ;
+    private String tableid = "table_";
     private String TAG = "Simon";
     private ListView itemsList;
     private ItemsAdapter itemsAdapter;
@@ -41,8 +46,13 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-        setAllCommentsList(storeName);
 
+        Intent intent = getIntent();
+        storeName = intent.getExtras().getString("storename");
+        userName = intent.getExtras().getString("username");
+        String table_id = intent.getExtras().getString("tableid");
+        tableid = tableid+table_id;
+        setAllCommentsList(storeName);
     }
     public void setAllCommentsList(String storename){
         mDatabase.child("restaurants").child(storename)
@@ -65,6 +75,10 @@ public class OrderActivity extends AppCompatActivity {
                     }
                 });
     }
+    Date date = new Date();
+    String str = "dd-MM-yyyy hh:mm:ss";
+    SimpleDateFormat format = new SimpleDateFormat(str);
+    String time = format.format(date);
 
     private void setListView(final ArrayList<Items> menuList){
         itemsList = findViewById(R.id.list_item);
@@ -81,8 +95,10 @@ public class OrderActivity extends AppCompatActivity {
 
     public void MakeOrder(View view){
         makeOrder(menuList,storeName);
+        Toast.makeText(this, "Order Successful"  , Toast.LENGTH_LONG).show();
         Intent intent = new Intent(OrderActivity.this,CommentActivity.class);
         intent.putExtra("storename",storeName);
+        intent.putExtra("username",userName);
         startActivity(intent);
     }
 
@@ -98,11 +114,13 @@ public class OrderActivity extends AppCompatActivity {
             }
 
         }
-        Makeorder.put("client_id", "Test User");
-        Makeorder.put("item_list", s);
-        Makeorder.put("total_price", price);
+        Makeorder.put("orderItem", s);
+        Makeorder.put("totalPrice", price);
+        Makeorder.put("tableID", tableid);
+        Makeorder.put("orderTime", time);
+
         mDatabase.child("users").child("store")
-                .child(storeName).child("order").child("order2")
+                .child(storeName).child("order").child(tableid)
                 .setValue(Makeorder)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
