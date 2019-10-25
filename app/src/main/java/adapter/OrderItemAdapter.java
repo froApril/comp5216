@@ -46,7 +46,7 @@ public class OrderItemAdapter extends BaseAdapter {
 
         viewHolder.tableIDView.setText(""+list.get(i).getTableID());
         viewHolder.orderTimeView.setText(""+list.get(i).getOrderTime());
-        viewHolder.priceView.setText(""+list.get(i).getTotalPrice());
+        viewHolder.priceView.setText("$"+ String.format("%.2f", list.get(i).getTotalPrice()));
 
         return view;
     }

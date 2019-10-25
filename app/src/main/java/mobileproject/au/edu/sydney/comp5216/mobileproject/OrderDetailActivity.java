@@ -31,6 +31,6 @@ public class OrderDetailActivity extends Activity
         orderItemView = findViewById(R.id.orderItems);
         orderItemView.setText(orderItem);
         totalPriceView = findViewById(R.id.totalPrice);
-        totalPriceView.setText("Total Price: $" + totalPrice );
+        totalPriceView.setText("Total Price: $" + String.format("%.2f",totalPrice));
     }
 }
